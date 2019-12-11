@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -6,6 +9,7 @@ import 'package:serial_number/serial_number.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'dart:async';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -41,7 +45,14 @@ class _MyAppState extends State<MyApp> {
       });
     }
 
-    SerialNumber.serialNumber.then(
+    // SerialNumber.serialNumber.then(
+    //   (sn) {
+    //     _serial = sn;
+    //     generatePassword(sn);
+    //   },
+    // );
+
+    new SerialStorage().readSerial().then(
       (sn) {
         _serial = sn;
         generatePassword(sn);
@@ -112,3 +123,46 @@ class _MyAppState extends State<MyApp> {
     return materialApp;
   }
 }
+
+
+class SerialStorage {
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+
+    return File('$path/serial.txt');
+  }
+
+  Future<String> readSerial() async {
+    try {
+      final file = await _localFile;
+      String contents = await file.readAsString();
+
+      return contents;
+    } catch (e) {
+      String newSerial = generaNumeroSerie();
+      writeSerial(newSerial);
+      return newSerial;
+    }
+  }
+
+  Future<File> writeSerial(String serial) async {
+    final file = await _localFile;
+    return file.writeAsString('$serial');
+  }
+
+  String generaNumeroSerie() {
+    String caratteri = "01234567890ABCDEFGHILJKMNOPRSTVWXYZ";
+    String sn = "";
+    for(int i = 0; i < 10; i++){
+      var idx =  Random().nextInt(caratteri.length);
+      sn += caratteri.substring(idx, idx+1);
+    }
+    return sn;
+  }
+}
+
