@@ -1,4 +1,4 @@
-package com.example.learningflutter;
+package com.implementasrl.password_generator;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

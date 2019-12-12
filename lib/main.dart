@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:serial_number/serial_number.dart';
 
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
