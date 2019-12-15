@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
     generatePassword(sn) {
       setState(() {
         DateTime now = DateTime.now();
-        String formattedDate = DateFormat('yyyyMMddkkmm').format(now);
+        String formattedDate = DateFormat('yyyyMMddkkmm').format(now.toUtc());
         var input = "$sn$formattedDate";
         _passwd = md5.convert(utf8.encode(input)).toString();
         _passwd =
