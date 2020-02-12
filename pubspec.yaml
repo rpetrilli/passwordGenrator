@@ -20,12 +20,15 @@ flutter:
   uses-material-design: true
   assets:
    - images/chiave.png
+   - assets/launcher/icon.png
   #  - images/a_dot_ham.jpeg
 
 flutter_icons:
-  image_path: "images/chiave.png"
-  android: true
+  android: "launcher_icon"
+  image_path: "assets/launcher/icon.png"
   ios: true
+  image_path_ios: "assets/launcher/icon.png"
+  image_path_android: "assets/launcher/icon.png"
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
